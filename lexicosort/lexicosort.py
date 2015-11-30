@@ -1,15 +1,12 @@
 #!/usr/bin/env python
+import string
 import sys
 
 def arbsort(given, order):
-    def arborder(str):
-        key = 0
-        for i,ch in enumerate(str[::-1]):
-            # We add one to make longer words with identical
-            # chars sort later. e.g. a aaa a -> a aa aaa
-            key += i * (1 + order.index(ch))
-        return key
-    return sorted(given, key=arborder)
+    trans = string.maketrans(order, string.ascii_lowercase[:len(order)])
+    def score(word):
+        return word.translate(trans)
+    return sorted(given, key=score)
 
 
 def help():
