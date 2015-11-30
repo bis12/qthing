@@ -2,7 +2,14 @@
 import sys
 
 def arbsort(given, order):
-    return sorted(given)
+    def arborder(str):
+        key = 0
+        for i,ch in enumerate(str[::-1]):
+            # We add one to make longer words with identical
+            # chars sort later. e.g. a aaa a -> a aa aaa
+            key += i * (1 + order.index(ch))
+        return key
+    return sorted(given, key=arborder)
 
 
 def help():
