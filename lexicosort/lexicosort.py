@@ -3,7 +3,11 @@ import string
 import sys
 
 def arbsort(given, order):
-    trans = string.maketrans(order, string.ascii_lowercase[:len(order)])
+    if sys.version_info < (3,):
+        strmod = string
+    else:
+        strmod = str
+    trans = strmod.maketrans(order, string.ascii_lowercase[:len(order)])
     def score(word):
         return word.translate(trans)
     return sorted(given, key=score)
