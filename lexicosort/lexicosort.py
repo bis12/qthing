@@ -2,14 +2,21 @@
 import string
 import sys
 
-def arbsort(given, order):
+def arbitrary_sort(given, order):
+    '''This function will take a list of strings and return them
+    in sorted order where order is a string of characters
+    in an arbitary order.
+
+    This will only work on lowercase ascii characters!'''
     if sys.version_info < (3,):
         strmod = string
     else:
         strmod = str
     trans = strmod.maketrans(order, string.ascii_lowercase[:len(order)])
+
     def score(word):
         return word.translate(trans)
+
     return sorted(given, key=score)
 
 
@@ -38,4 +45,4 @@ def help():
 if __name__ == '__main__':
     if len(sys.argv) < 3 or '-h' in sys.argv or '--help' in sys.argv:
         help()
-    print(' '.join(arbsort(sys.argv[1:-1], sys.argv[-1])))
+    print(' '.join(arbitrary_sort(sys.argv[1:-1], sys.argv[-1])))
